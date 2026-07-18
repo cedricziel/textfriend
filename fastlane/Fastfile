@@ -161,8 +161,10 @@ end
 desc "Upload the App Privacy nutrition label (data not collected)"
 lane :sync_privacy do
   api_key = load_app_store_connect_api_key
+  # The action has no api_key option; it reuses the Spaceship token that
+  # load_app_store_connect_api_key already installed.
+  _ = api_key
   upload_app_privacy_details_to_app_store(
-    api_key: api_key,
     app_identifier: APP_IDENTIFIER,
     json_path: "fastlane/app_privacy_details.json"
   )
