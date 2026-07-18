@@ -54,6 +54,22 @@ make format     # swift format --in-place
 make icon       # regenerate the app icon (Python 3 + Pillow)
 ```
 
+## Releasing
+
+Releases are automated with [release-please](https://github.com/googleapis/release-please)
+and [fastlane](https://fastlane.tools):
+
+1. Land semantic commits on `main` — release-please maintains a release PR
+   that bumps `MARKETING_VERSION` in `project.yml` and the changelog.
+2. Merging the release PR tags a prerelease and CI uploads the build to
+   TestFlight (`fastlane beta`; build number = commit count).
+3. Marking the GitHub release as "latest" submits that TestFlight build for
+   App Store review (`fastlane submit_to_app_store`) with the release notes.
+
+Signing uses `match` against a shared certificates repo; App Store Connect
+auth uses an API key. Locally: `cp fastlane/.env.default fastlane/.env`,
+fill it from 1Password, then `bundle exec fastlane beta`.
+
 ## Architecture
 
 ```
