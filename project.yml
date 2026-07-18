@@ -45,6 +45,11 @@ targets:
       path: App/Info.plist
       properties:
         CFBundleDisplayName: TextFriend
+        # Reference build settings so release-please's MARKETING_VERSION and
+        # the commit-count CURRENT_PROJECT_VERSION reach the binary; without
+        # these xcodegen hard-codes 1.0/1 and every upload is "build 1".
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen: {}
         UISupportsDocumentBrowser: true
         LSSupportsOpeningDocumentsInPlace: true
