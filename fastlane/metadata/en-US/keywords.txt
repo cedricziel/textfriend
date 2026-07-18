@@ -1,1 +1,1 @@
-yaml,toml,ini,dotenv,env,json,markdown,config,plist,syntax,docker,compose,editor,code
+yaml,toml,ini,dotenv,env,json,markdown,config,plist,terraform,hcl,sql,dockerfile,log,diff,csv

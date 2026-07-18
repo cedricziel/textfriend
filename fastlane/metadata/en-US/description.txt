@@ -13,7 +13,7 @@ A tap on the status bar shows every issue with its line and explanation.
 
 SYNTAX HIGHLIGHTING
 
-YAML, JSON/JSONC, TOML, INI, .env, Markdown, XML/plist/SVG, and shell scripts — with three color themes and adjustable monospaced type.
+YAML, JSON/JSONC, TOML, INI, .env, Markdown, XML/plist/SVG, shell scripts, Dockerfiles, HCL/Terraform, SQL, diffs & patches, log files, crontabs, Apple .strings, and CSV/TSV — with three color themes and adjustable monospaced type.
 
 BUILT FOR REAL WORK
 

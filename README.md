@@ -27,14 +27,16 @@ it with Working Copy or the Files app — that's what open-in-place is for.
 ## Features
 
 - **Syntax highlighting** for YAML, JSON/JSONC, TOML, INI, `.env`, Markdown,
-  XML/plist/SVG, and shell scripts — powered by a small, fully unit-tested
-  tokenizer engine (no heavyweight dependencies)
+  XML/plist/SVG, shell scripts, Dockerfiles, HCL/Terraform, SQL, diffs and
+  patches, log files, crontabs, Apple `.strings`, and CSV/TSV — powered by a
+  small, fully unit-tested tokenizer engine (no heavyweight dependencies)
 - **Problem detection**: JSON parse errors with line numbers, YAML
   tab-indentation errors and duplicate-key warnings, `.env` duplicate keys
 - **Files-app native**: document browser, open-in-place, autosave — your
   files stay where they are
-- **Smart filename detection**: `.env.local`, `Dockerfile`, `Makefile`,
-  `.gitignore`, `.editorconfig` and friends are recognized without extensions
+- **Smart filename detection**: `.env.local`, `Dockerfile`, `Containerfile`,
+  `Makefile`, `crontab`, `.gitignore`, `.editorconfig` and friends are
+  recognized without extensions
 - **Find & replace**, live line/word/character counts, adjustable monospaced
   type, three color themes, and a keyboard accessory row with the symbols
   YAML actually needs (`-` `:` `#` `"` `|` `>` …)

@@ -7,6 +7,13 @@ nonisolated extension UTType {
   static let toml = UTType(importedAs: "org.toml.toml", conformingTo: .plainText)
   static let iniFile = UTType(importedAs: "com.cedricziel.textfriend.ini", conformingTo: .plainText)
   static let envFile = UTType(importedAs: "com.cedricziel.textfriend.env", conformingTo: .plainText)
+  static let hclFile = UTType(importedAs: "com.cedricziel.textfriend.hcl", conformingTo: .plainText)
+  static let sqlFile = UTType(importedAs: "com.cedricziel.textfriend.sql", conformingTo: .plainText)
+  static let patchFile = UTType(
+    importedAs: "com.cedricziel.textfriend.patch", conformingTo: .plainText)
+  static let logFile = UTType(importedAs: "com.cedricziel.textfriend.log", conformingTo: .plainText)
+  static let stringsFile = UTType(
+    importedAs: "com.cedricziel.textfriend.strings", conformingTo: .plainText)
 }
 
 /// A plain-text document. TextFriend never transforms content on load or
@@ -17,7 +24,8 @@ nonisolated struct TextFriendDocument: FileDocument {
   // type — e.g. exported chat artifacts and extensionless config files.
   static let readableContentTypes: [UTType] = [
     .plainText, .text, .yaml, .json, .xml, .shellScript, .commaSeparatedText,
-    .markdownDoc, .toml, .iniFile, .envFile, .data,
+    .tabSeparatedText, .markdownDoc, .toml, .iniFile, .envFile, .hclFile,
+    .sqlFile, .patchFile, .logFile, .stringsFile, .data,
   ]
 
   var text: String

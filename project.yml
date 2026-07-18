@@ -75,6 +75,12 @@ targets:
               - org.toml.toml
               - com.cedricziel.textfriend.ini
               - com.cedricziel.textfriend.env
+              - com.cedricziel.textfriend.hcl
+              - com.cedricziel.textfriend.sql
+              - com.cedricziel.textfriend.patch
+              - com.cedricziel.textfriend.log
+              - com.cedricziel.textfriend.strings
+              - public.tab-separated-values-text
           # Generic fallback so explicitly-shared files of any type can be
           # opened as text (kept in a separate, lowest-rank declaration).
           - CFBundleTypeName: Any File
@@ -103,6 +109,31 @@ targets:
             UTTypeConformsTo: [public.plain-text]
             UTTypeTagSpecification:
               public.filename-extension: [env]
+          - UTTypeIdentifier: com.cedricziel.textfriend.hcl
+            UTTypeDescription: HCL / Terraform File
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [tf, tfvars, hcl]
+          - UTTypeIdentifier: com.cedricziel.textfriend.sql
+            UTTypeDescription: SQL Script
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [sql]
+          - UTTypeIdentifier: com.cedricziel.textfriend.patch
+            UTTypeDescription: Diff / Patch File
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [diff, patch]
+          - UTTypeIdentifier: com.cedricziel.textfriend.log
+            UTTypeDescription: Log File
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [log]
+          - UTTypeIdentifier: com.cedricziel.textfriend.strings
+            UTTypeDescription: Strings Localization File
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [strings]
 
   TextFriendTests:
     type: bundle.unit-test
