@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/cedricziel/textfriend/compare/v1.1.1...v1.2.0) (2026-07-18)
+
+
+### Features
+
+* add App Store screenshots and finalize listing sync ([203f65d](https://github.com/cedricziel/textfriend/commit/203f65dea96ea41da03c479072afe50f281eb6cd))
+* maintain App Store listing with fastlane ([8c55731](https://github.com/cedricziel/textfriend/commit/8c5573186eaeed1a7c67219627f30d31199a68ea))
+
+
+### Bug Fixes
+
+* declare Editor document role, add share-flow regression test ([05587b3](https://github.com/cedricziel/textfriend/commit/05587b3f9bbacb65bcd46fe5b4a4e48b92f6a201))
+* open generically-typed files shared into the app ([1bcd49d](https://github.com/cedricziel/textfriend/commit/1bcd49d474ee2eb6a3a70139f7ce0ad38560372d))
+
 ## [1.1.1](https://github.com/cedricziel/textfriend/compare/v1.1.0...v1.1.1) (2026-07-18)
 
 
