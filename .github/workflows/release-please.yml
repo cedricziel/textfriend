@@ -1,0 +1,132 @@
+name: Release Please
+
+# All release-shaped automation lives in one workflow:
+#   - push to main           → release-please opens/updates release PR;
+#                              on merge it tags + creates a (pre-)release,
+#                              and the testflight job uploads to TestFlight.
+#   - release: released      → human graduated a prerelease via
+#                              "Set as the latest release"; the app-store
+#                              job submits the existing TestFlight build
+#                              for App Store review (no rebuild).
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [released]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Release PR / Tag
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.rp.outputs.release_created }}
+      tag_name:        ${{ steps.rp.outputs.tag_name }}
+      version:         ${{ steps.rp.outputs.version }}
+    steps:
+      - id: rp
+        uses: googleapis/release-please-action@v5
+        with:
+          # Prefer a dedicated PAT (RELEASE_PLEASE_TOKEN) so releases/tags
+          # created here can trigger downstream workflows. GITHUB_TOKEN-driven
+          # releases are suppressed by GitHub from triggering other workflows.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  testflight:
+    name: Upload to TestFlight
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.release-please.outputs.tag_name }}
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Configure SSH for match repo
+        env:
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$MATCH_DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Build and upload to TestFlight
+        env:
+          ASC_KEY_ID:                            ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID:                         ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT:                       ${{ secrets.ASC_KEY_CONTENT }}
+          MATCH_GIT_URL:                         ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD:                        ${{ secrets.MATCH_PASSWORD }}
+          MATCH_KEYCHAIN_PASSWORD:               ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          FASTLANE_HIDE_CHANGELOG:               "true"
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT:  "120"
+          FASTLANE_XCODEBUILD_SETTINGS_RETRIES:  "5"
+        run: |
+          bundle exec fastlane beta \
+            allow_dirty:true \
+            changelog:"Release ${{ needs.release-please.outputs.tag_name }}"
+
+      - name: Upload IPA artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: TextFriend-${{ needs.release-please.outputs.tag_name }}
+          path: build/*.ipa
+          if-no-files-found: ignore
+          retention-days: 30
+
+  app-store:
+    name: Submit to App Store
+    # Triggered when a human flips a release from prerelease to "latest" on
+    # the GitHub release page. Doesn't depend on the release-please job
+    # outputs (different workflow run); reads the tag from the release event.
+    if: github.event_name == 'release' && github.event.action == 'released'
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.release.tag_name }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Compute build number from the tagged commit
+        id: build
+        run: echo "number=$(git rev-list --count HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Submit existing TestFlight build to App Store
+        env:
+          ASC_KEY_ID:      ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID:   ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+          # Plumbed through to fastlane's stage_release_notes! helper, which
+          # writes it to fastlane/metadata/en-US/release_notes.txt before
+          # upload_to_app_store runs. App Store renders this as plain text.
+          RELEASE_NOTES:   ${{ github.event.release.body }}
+        run: |
+          bundle exec fastlane submit_to_app_store \
+            build:${{ steps.build.outputs.number }} \
+            submit:true \
+            auto_release:false
