@@ -12,9 +12,12 @@ nonisolated extension UTType {
 /// A plain-text document. TextFriend never transforms content on load or
 /// save — bytes in, bytes out (as UTF-8).
 nonisolated struct TextFriendDocument: FileDocument {
+  // `.data` comes last: any file explicitly handed to TextFriend (share
+  // sheet, "Open in…") opens as text, even when the sender vends a generic
+  // type — e.g. exported chat artifacts and extensionless config files.
   static let readableContentTypes: [UTType] = [
     .plainText, .text, .yaml, .json, .xml, .shellScript, .commaSeparatedText,
-    .markdownDoc, .toml, .iniFile, .envFile,
+    .markdownDoc, .toml, .iniFile, .envFile, .data,
   ]
 
   var text: String

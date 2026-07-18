@@ -70,6 +70,13 @@ targets:
               - org.toml.toml
               - com.cedricziel.textfriend.ini
               - com.cedricziel.textfriend.env
+          # Generic fallback so explicitly-shared files of any type can be
+          # opened as text (kept in a separate, lowest-rank declaration).
+          - CFBundleTypeName: Any File
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: None
+            LSItemContentTypes:
+              - public.data
         UTImportedTypeDeclarations:
           - UTTypeIdentifier: net.daringfireball.markdown
             UTTypeDescription: Markdown Document
@@ -130,9 +137,6 @@ schemes:
       targets:
         - TextFriendTests
         - name: TextFriendUITests
-          # Screenshot generation and the Files-app share-flow test are
-          # driven on demand (fastlane screenshots / -only-testing), not
-          # in the default test run.
+          # Screenshot generation is driven by fastlane, not the test run.
           skippedTests:
             - ScreenshotTests
-            - ShareOpenTests
