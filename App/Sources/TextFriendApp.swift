@@ -6,6 +6,10 @@ struct TextFriendApp: App {
   let container: ModelContainer
 
   init() {
+    // On a fresh install Application Support doesn't exist yet; creating it
+    // up front spares SwiftData a noisy CoreData error-and-recover cycle.
+    try? FileManager.default.createDirectory(
+      at: .applicationSupportDirectory, withIntermediateDirectories: true)
     do {
       container = try ModelContainer(for: EditorSettings.self)
     } catch {
