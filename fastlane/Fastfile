@@ -187,10 +187,16 @@ end
 def load_app_store_connect_api_key
   return @asc_api_key if @asc_api_key
 
-  key_id      = ENV["ASC_KEY_ID"]
-  issuer_id   = ENV["ASC_ISSUER_ID"]
-  key_path    = ENV["ASC_KEY_PATH"]
-  key_content = ENV["ASC_KEY_CONTENT"]
+  # fastlane auto-loads fastlane/.env.default, whose placeholder entries
+  # yield empty strings — treat those as unset.
+  env = ->(name) {
+    value = ENV[name]
+    value.nil? || value.strip.empty? ? nil : value
+  }
+  key_id      = env.call("ASC_KEY_ID")
+  issuer_id   = env.call("ASC_ISSUER_ID")
+  key_path    = env.call("ASC_KEY_PATH")
+  key_content = env.call("ASC_KEY_CONTENT")
 
   if key_id.nil? || issuer_id.nil? || (key_path.nil? && key_content.nil?)
     UI.user_error!(<<~MSG)
