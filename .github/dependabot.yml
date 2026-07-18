@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # No Swift package dependencies yet; add a "swift" entry if a
+  # Package.swift is ever introduced.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
