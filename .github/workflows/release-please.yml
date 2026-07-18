@@ -32,22 +32,23 @@ jobs:
       - id: rp
         uses: googleapis/release-please-action@v5
         with:
-          # Deliberately GITHUB_TOKEN, not a PAT: bot-created releases don't
-          # trigger workflows, so cutting a release can never accidentally
-          # fire the app-store job below. Only the human "Set as the latest
+          # RELEASE_PLEASE_TOKEN (a fine-grained PAT) makes the release PR a
+          # user-authored PR so the required CI check runs and auto-merge can
+          # work. Releases are created as DRAFTS (see release-please-config),
+          # which fire no events and have no tag yet — so even with a PAT,
+          # cutting a release can never race the app-store submit job. The
+          # publish step below (GITHUB_TOKEN, event-suppressed) turns the
+          # draft into a prerelease; only the human "Set as the latest
           # release" action emits the `released` event that submits.
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
-      # release-please only marks releases with a -suffix as prereleases, so
-      # demote fresh releases explicitly. Graduating one ("Set as the latest
-      # release") is the human gate that submits to App Store review.
-      - name: Mark release as prerelease
+      - name: Publish draft as prerelease
         if: ${{ steps.rp.outputs.release_created == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release edit "${{ steps.rp.outputs.tag_name }}" --repo "${{ github.repository }}" --prerelease
+        run: gh release edit "${{ steps.rp.outputs.tag_name }}" --repo "${{ github.repository }}" --draft=false --prerelease
 
   testflight:
     name: Upload to TestFlight

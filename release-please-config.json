@@ -6,7 +6,7 @@
       "include-component-in-tag": false,
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": false,
-      "draft": false,
+      "draft": true,
       "extra-files": [
         { "type": "generic", "path": "project.yml" }
       ]
