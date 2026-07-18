@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/cedricziel/textfriend/compare/v1.1.0...v1.1.1) (2026-07-18)
+
+
+### Bug Fixes
+
+* ignore empty env placeholders from auto-loaded .env.default ([3af2edb](https://github.com/cedricziel/textfriend/commit/3af2edb25423e8ae018f944683c562d0849414fb))
+
 ## [1.1.0](https://github.com/cedricziel/textfriend/compare/v1.0.0...v1.1.0) (2026-07-18)
 
 
