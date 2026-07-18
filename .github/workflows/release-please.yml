@@ -126,7 +126,9 @@ jobs:
           # upload_to_app_store runs. App Store renders this as plain text.
           RELEASE_NOTES:   ${{ github.event.release.body }}
         run: |
+          TAG="${{ github.event.release.tag_name }}"
           bundle exec fastlane submit_to_app_store \
+            version:"${TAG#v}" \
             build:${{ steps.build.outputs.number }} \
             submit:true \
             auto_release:false

@@ -1,0 +1,1 @@
+First release: syntax highlighting for YAML, JSON, TOML, INI, .env, Markdown, XML and shell scripts — plus built-in problem detection.

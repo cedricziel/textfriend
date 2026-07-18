@@ -1,0 +1,27 @@
+TextFriend opens the plain-text formats real projects are made of — docker-compose.yml, Cargo.toml, .env, php.ini, Info.plist — with proper syntax highlighting and built-in sanity checks. It works directly with the Files app: open in place, edit, done. No import, no projects, no lock-in. And no subscription — you pay once.
+
+WHY TEXTFRIEND
+
+Most editors stop at YAML and JSON. TextFriend is built for the "exotic" config files everyone actually edits: TOML, INI, dotenv (.env), and friends. It recognizes special filenames like .env.local, Dockerfile, Makefile, .gitignore and .editorconfig without needing an extension.
+
+FIND PROBLEMS BEFORE YOUR SERVER DOES
+
+• JSON: parse errors with exact line numbers
+• YAML: tab-indentation errors and duplicate-key warnings
+• .env: duplicate keys and malformed lines
+A tap on the status bar shows every issue with its line and explanation.
+
+SYNTAX HIGHLIGHTING
+
+YAML, JSON/JSONC, TOML, INI, .env, Markdown, XML/plist/SVG, and shell scripts — with three color themes and adjustable monospaced type.
+
+BUILT FOR REAL WORK
+
+• Files-app native: document browser, open in place, autosave — your files stay where they are (Working Copy, iCloud Drive, SMB shares, …)
+• Find & replace
+• Keyboard row with the symbols YAML actually needs: - : # " | > and more
+• Live line, word, and character counts
+• Works on iPhone and iPad
+• No accounts, no tracking, no data collection
+
+TextFriend is a small, fast, honest tool: open a config file, see what's wrong, fix it, get on with your day.

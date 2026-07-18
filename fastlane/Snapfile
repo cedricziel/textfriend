@@ -1,0 +1,16 @@
+# App Store screenshot matrix. Run: bundle exec fastlane screenshots
+devices([
+  "iPhone 17 Pro Max",   # 6.9" — required
+  "iPad Pro 13-inch (M5)" # 13" — required for iPad support
+])
+
+languages(["en-US"])
+
+scheme("TextFriend")
+only_testing(["TextFriendUITests/ScreenshotTests"])
+
+output_directory("./fastlane/screenshots")
+clear_previous_screenshots(true)
+override_status_bar(true)
+stop_after_first_error(true)
+concurrent_simulators(false)

@@ -1,0 +1,1 @@
+TextFriend is a fully offline document-based text editor. No account or demo credentials are required. To test: create a document (or open any .yaml/.toml/.env file from Files), type YAML with a duplicate key to see the built-in problem detection in the status bar.
