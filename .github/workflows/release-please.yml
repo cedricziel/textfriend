@@ -32,12 +32,22 @@ jobs:
       - id: rp
         uses: googleapis/release-please-action@v5
         with:
-          # Prefer a dedicated PAT (RELEASE_PLEASE_TOKEN) so releases/tags
-          # created here can trigger downstream workflows. GITHUB_TOKEN-driven
-          # releases are suppressed by GitHub from triggering other workflows.
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          # Deliberately GITHUB_TOKEN, not a PAT: bot-created releases don't
+          # trigger workflows, so cutting a release can never accidentally
+          # fire the app-store job below. Only the human "Set as the latest
+          # release" action emits the `released` event that submits.
+          token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      # release-please only marks releases with a -suffix as prereleases, so
+      # demote fresh releases explicitly. Graduating one ("Set as the latest
+      # release") is the human gate that submits to App Store review.
+      - name: Mark release as prerelease
+        if: ${{ steps.rp.outputs.release_created == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release edit "${{ steps.rp.outputs.tag_name }}" --repo "${{ github.repository }}" --prerelease
 
   testflight:
     name: Upload to TestFlight

@@ -61,9 +61,10 @@ and [fastlane](https://fastlane.tools):
 
 1. Land semantic commits on `main` — release-please maintains a release PR
    that bumps `MARKETING_VERSION` in `project.yml` and the changelog.
-2. Merging the release PR tags a prerelease and CI uploads the build to
+2. Merging the release PR tags a **prerelease** and CI uploads the build to
    TestFlight (`fastlane beta`; build number = commit count).
-3. Marking the GitHub release as "latest" submits that TestFlight build for
+3. When the TestFlight build checks out, edit the GitHub release and
+   **"Set as the latest release"** — that human action submits the build for
    App Store review (`fastlane submit_to_app_store`) with the release notes.
 
 Signing uses `match` against a shared certificates repo; App Store Connect
