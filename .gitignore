@@ -1,0 +1,16 @@
+# Xcode
+*.xcodeproj
+!default.xcodeproj
+xcuserdata/
+DerivedData/
+*.xcresult
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Build artifacts
+build/
