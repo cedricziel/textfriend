@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/cedricziel/textfriend/compare/v1.2.0...v1.2.1) (2026-07-18)
+
+
+### Bug Fixes
+
+* derive bundle version and marketing version from build settings ([f78ba2c](https://github.com/cedricziel/textfriend/commit/f78ba2cb2502b31b9c299f64ea539c4eb17fb69f))
+
 ## [1.2.0](https://github.com/cedricziel/textfriend/compare/v1.1.1...v1.2.0) (2026-07-18)
 
 
