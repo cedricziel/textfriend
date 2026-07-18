@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select latest Xcode
+        run: |
+          XCODE=$(ls -d /Applications/Xcode*.app | sort -V | tail -1)
+          echo "Using $XCODE"
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate project
+        run: xcodegen generate
+
+      - name: Lint
+        run: xcrun swift format lint --recursive App Tests
+
+      - name: Test
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -oE "iPhone [0-9][^(]*" | head -1 | xargs)
+          echo "Testing on: $DEVICE"
+          xcodebuild -project TextFriend.xcodeproj -scheme TextFriend \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
+            -only-testing:TextFriendTests \
+            test
