@@ -56,6 +56,7 @@ targets:
           - UIInterfaceOrientationLandscapeRight
         CFBundleDocumentTypes:
           - CFBundleTypeName: Text Document
+            CFBundleTypeRole: Editor
             LSHandlerRank: Alternate
             LSItemContentTypes:
               - public.plain-text
@@ -128,4 +129,10 @@ schemes:
       gatherCoverageData: true
       targets:
         - TextFriendTests
-        - TextFriendUITests
+        - name: TextFriendUITests
+          # Screenshot generation and the Files-app share-flow test are
+          # driven on demand (fastlane screenshots / -only-testing), not
+          # in the default test run.
+          skippedTests:
+            - ScreenshotTests
+            - ShareOpenTests
