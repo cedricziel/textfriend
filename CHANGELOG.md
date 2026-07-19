@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/cedricziel/textfriend/compare/v1.2.1...v1.3.0) (2026-07-19)
+
+
+### Features
+
+* support 8 more file types ([#6](https://github.com/cedricziel/textfriend/issues/6)) ([25a7a40](https://github.com/cedricziel/textfriend/commit/25a7a401cf56934b15294ee786534c66ab6f57af))
+
 ## [1.2.1](https://github.com/cedricziel/textfriend/compare/v1.2.0...v1.2.1) (2026-07-18)
 
 
