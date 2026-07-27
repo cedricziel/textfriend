@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/cedricziel/textfriend/compare/v1.3.0...v1.3.1) (2026-07-19)
+
+
+### Bug Fixes
+
+* **ci:** restore prerelease flag so release-please sees prerelease boundaries ([8e9f330](https://github.com/cedricziel/textfriend/commit/8e9f330eb229e1d35e150910bf33a442f9015351))
+
 ## [1.3.0](https://github.com/cedricziel/textfriend/compare/v1.2.1...v1.3.0) (2026-07-19)
 
 
