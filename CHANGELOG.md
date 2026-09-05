@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.9.0](https://github.com/cedricziel/textfriend/compare/v1.8.0...v1.9.0) (2026-09-05)
+
+
+### Features
+
+* add App Store screenshots and finalize listing sync ([203f65d](https://github.com/cedricziel/textfriend/commit/203f65dea96ea41da03c479072afe50f281eb6cd))
+* add TextFriend iOS app with syntax highlighting engine ([c738572](https://github.com/cedricziel/textfriend/commit/c73857213aabb2584d9da7c8a4aa17bc982f1762))
+* maintain App Store listing with fastlane ([8c55731](https://github.com/cedricziel/textfriend/commit/8c5573186eaeed1a7c67219627f30d31199a68ea))
+* support 8 more file types ([#6](https://github.com/cedricziel/textfriend/issues/6)) ([25a7a40](https://github.com/cedricziel/textfriend/commit/25a7a401cf56934b15294ee786534c66ab6f57af))
+
+
+### Bug Fixes
+
+* **ci:** restore prerelease flag so release-please sees prerelease boundaries ([8e9f330](https://github.com/cedricziel/textfriend/commit/8e9f330eb229e1d35e150910bf33a442f9015351))
+* create Application Support directory before SwiftData container ([daf276e](https://github.com/cedricziel/textfriend/commit/daf276ef637d32fbd5164dafca7e761d7219120f))
+* declare Editor document role, add share-flow regression test ([05587b3](https://github.com/cedricziel/textfriend/commit/05587b3f9bbacb65bcd46fe5b4a4e48b92f6a201))
+* derive bundle version and marketing version from build settings ([f78ba2c](https://github.com/cedricziel/textfriend/commit/f78ba2cb2502b31b9c299f64ea539c4eb17fb69f))
+* ignore empty env placeholders from auto-loaded .env.default ([3af2edb](https://github.com/cedricziel/textfriend/commit/3af2edb25423e8ae018f944683c562d0849414fb))
+* open generically-typed files shared into the app ([1bcd49d](https://github.com/cedricziel/textfriend/commit/1bcd49d474ee2eb6a3a70139f7ce0ad38560372d))
+* pass exactly one ASC key source to app_store_connect_api_key ([024624a](https://github.com/cedricziel/textfriend/commit/024624a2a3646557c4b996bf3baa247e04a417b6))
+
 ## [1.8.0](https://github.com/cedricziel/textfriend/compare/v1.7.0...v1.8.0) (2026-08-28)
 
 
